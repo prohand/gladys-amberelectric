@@ -1,0 +1,154 @@
+# Amber Electric
+
+Diese Integration verbindet Gladys mit deinem **Amber-Electric**-Konto
+(Australien) und liefert den Preis deines Stroms, aktuell und als Prognose,
+damit deine Szenen die Poolpumpe, das Warmwasser oder das Laden des Autos
+starten, wenn Strom günstig ist, und sie vor einer Preisspitze stoppen.
+
+Sie spricht nur mit der Amber-Cloud (sie trägt das Tag **cloud**): In deinem
+Netzwerk muss nichts installiert werden.
+
+## Was du bekommst
+
+- Ein Gerät pro Amber-Standort (ein Zähler, angezeigt mit seiner NMI), mit:
+  - dem **Strompreis**, den du gerade zahlst, in $/kWh;
+  - dem **Großhandels-Spotpreis**;
+  - dem **Preis der steuerbaren Last**, wenn dein Zähler eine hat (zum
+    Beispiel das Warmwasser);
+  - dem **Einspeisepreis**, wenn du Solarstrom einspeist: was du pro
+    eingespeister kWh **verdienst**. Er ist negativ, wenn Einspeisen dich Geld
+    kostet;
+  - dem **Anteil erneuerbarer Energie** im Netz, in %.
+- Drei Szenenauslöser, zwei Szenenaktionen und ein Dashboard-Widget (Gladys 5.1
+  oder neuer).
+
+## Bevor du beginnst
+
+Du brauchst ein Amber-Electric-Konto mit mindestens einem aktiven Standort und
+ein persönliches API-Token.
+
+### Dein API-Token erstellen
+
+1. Melde dich in der Amber-Web-App an:
+   [app.amber.com.au](https://app.amber.com.au).
+2. Öffne die Seite **Developers**
+   ([app.amber.com.au/developers](https://app.amber.com.au/developers/)).
+3. Klicke auf **Generate a new token**, gib ihm einen Namen (zum Beispiel
+   `Gladys`) und kopiere es. Amber zeigt es nur einmal an.
+
+Das Token gibt nur Lesezugriff auf deine Standorte und Preise. Du kannst es
+jederzeit auf derselben Seite widerrufen.
+
+## Konfiguration
+
+1. Öffne den Tab **Konfiguration** der Integration.
+2. Füge das Token in **Amber-API-Token** ein.
+3. **Standort**: Leer lassen, um alle aktiven Standorte des Kontos zu
+   verfolgen. Um nur einen zu verfolgen, gib seine Amber-ID oder seine NMI ein
+   (die Schaltfläche **Verbindung testen** listet sie auf).
+4. **Aktualisierungsintervall**: standardmäßig 300 Sekunden (5 Minuten). Amber
+   veröffentlicht alle 5 Minuten einen neuen Preis und begrenzt die Anzahl der
+   Abfragen: Schneller bringt nichts, eine Minute ist das Minimum.
+5. **Prognosehorizont**: wie viele Stunden prognostizierter Preise gelesen
+   werden, für das Diagramm des Widgets und das günstigste Zeitfenster.
+   Standardmäßig 12 Stunden.
+6. Speichere und klicke dann auf **Verbindung testen**: Es listet deine
+   Standorte auf und zeigt den aktuellen Preis.
+7. Öffne den Tab **Erkennung** und füge deinen Standort hinzu: Seine Funktionen
+   füllen sich bei der nächsten Aktualisierung.
+
+Die Abfragen sind auf die Amber-Intervalle abgestimmt (ein paar Sekunden nach
+:00, :05, :10…): Der Preis ändert sich in Gladys gleichzeitig mit der
+Amber-App.
+
+## Die Geräte
+
+| Funktion                   | Einheit | Was es ist                                                |
+| -------------------------- | ------- | --------------------------------------------------------- |
+| Strompreis                 | $/kWh   | Was du jetzt zahlst, inklusive Netzentgelte und GST       |
+| Großhandels-Spotpreis      | $/kWh   | Der NEM-Marktpreis dahinter                               |
+| Preis der steuerbaren Last | $/kWh   | Nur wenn dein Zähler eine steuerbare Last hat             |
+| Einspeisepreis             | $/kWh   | Was du pro eingespeister kWh verdienst (negativ = kostet) |
+| Erneuerbare im Netz        | %       | Anteil erneuerbaren Stroms in deiner Region               |
+
+Die Funktionen behalten ihren Verlauf: Die Standarddiagramme von Gladys zeigen,
+wie sich der Preis über den Tag entwickelt hat. Ein Wert wird nur an Gladys
+gesendet, wenn er sich ändert (und sonst alle 30 Minuten).
+
+Du kannst diese Funktionen im Standardauslöser **Gerätezustand** der Szenen
+verwenden: „wenn der Strompreis über 0,30 $/kWh steigt…“.
+
+## Szenen
+
+Die Integration fügt dem Szeneneditor eigene Karten hinzu (Gladys 5.1 oder
+neuer), in der Kategorie **Integrationen**.
+
+### Auslöser
+
+- **Das Strompreisniveau ändert sich** — löst aus, wenn sich das
+  Amber-Preisniveau ändert: extrem niedrig, sehr niedrig, niedrig,
+  durchschnittlich, hoch oder Preisspitze. Wähle bei Bedarf den Standort und
+  die neuen Niveaus, die die Szene starten. Die folgenden Aktionen können
+  `{{triggerEvent.data.level}}`, `{{triggerEvent.data.previous_level}}` und
+  `{{triggerEvent.data.price}}` lesen.
+- **Eine Preisspitze ist möglich, beginnt oder endet** — löst aus, wenn der
+  Spitzenstatus zwischen keine, möglich und Spitze läuft wechselt. Wähle
+  „Spitze möglich“, um dich vorzubereiten (das Haus vorkühlen), „keine Spitze
+  (beendet)“, um weiterzumachen.
+- **Einspeisen ins Netz kostet oder bringt wieder Geld** — löst aus, wenn der
+  Einspeisepreis null überschreitet: Solarstrom einzuspeisen beginnt Geld zu
+  kosten (Wechselrichter drosseln, Batterie laden, Poolpumpe starten) oder
+  bringt wieder Geld.
+
+Ein Auslöser löst einmal pro Änderung aus, nie bei jeder Aktualisierung. Die
+erste Abfrage nach dem Start der Integration speichert nur den aktuellen
+Zustand: Ein Neustart spielt die Auslöser nicht erneut ab.
+
+### Aktionen
+
+- **Aktuellen Strompreis lesen** — gibt den folgenden Aktionen den aktuellen
+  Preis (`price`), den Spotpreis, das Niveau (`level`), den Spitzenstatus
+  (`spike_status`), den Anteil Erneuerbarer, ob der Preis noch geschätzt ist,
+  und die Tarifzeit. Wähle den zu lesenden Preis: bezogener Strom, steuerbare
+  Last oder Einspeisung. `available` ist falsch, wenn der Standort diesen Kanal
+  nicht hat.
+- **Günstigste Laufzeit finden** — gib eine Laufzeit (standardmäßig 60
+  Minuten) und einen Horizont (standardmäßig die nächsten 12 Stunden) an: Die
+  Aktion antwortet mit `starts_in_minutes`, `start_time` und `end_time` (UTC)
+  und dem `average_price` dieses Zeitfensters. `found` ist falsch, wenn die
+  Prognose zu kurz ist. Beispiel: „jeden Abend um 21 Uhr die günstigsten 2
+  Stunden der nächsten 10 Stunden finden und mir dann eine Nachricht senden:
+  Starte die Spülmaschine in `starts_in_minutes` Minuten“.
+
+## Dashboard
+
+Füge das Widget **Amber-Preise** zu einem Dashboard hinzu. Es zeigt:
+
+- den aktuellen Preis, den Einspeisepreis und den Anteil Erneuerbarer, in
+  c/kWh wie in der Amber-App, gefärbt nach Preisniveau;
+- das Prognosediagramm, mit der günstigsten Stunde und den markierten Spitzen;
+- das Preisniveau, den Spitzenstatus und die Tarifzeit;
+- eine Schaltfläche **Aktualisieren**, die die Preise sofort neu liest.
+
+Wähle in den Widget-Einstellungen den anzuzeigenden Standort (der erste, wenn
+leer).
+
+## Fehlerbehebung
+
+- **„Amber hat das API-Token abgelehnt“**: Das Token wurde widerrufen oder
+  falsch kopiert. Erstelle auf der Seite Developers ein neues und füge es
+  erneut ein.
+- **„Kein Standort dieses Amber-Kontos hat die im Feld Standort eingegebene
+  ID“**: Leere das Feld oder kopiere eine von **Verbindung testen** angegebene
+  ID.
+- **„Dieses Amber-Konto hat noch keinen aktiven Standort“**: Amber beliefert
+  deinen Zähler noch nicht (Standort ausstehend). Die Preise erscheinen, sobald
+  er aktiv ist.
+- **„Amber begrenzt die Anzahl der Abfragen“**: Die Abfragen pausieren ein paar
+  Minuten. Wenn das öfter passiert (ein anderes Tool nutzt dasselbe Token),
+  erhöhe das Aktualisierungsintervall.
+- **Die Funktionen bleiben leer**: Füge den Standort zuerst über den Tab
+  **Erkennung** hinzu.
+- Für mehr Details schalte in der Konfiguration **Detaillierte Protokolle** ein
+  und sieh dir die Protokolle der Integration an. Dein Token wird nie in die
+  Protokolle geschrieben.
