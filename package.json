@@ -1,6 +1,6 @@
 {
   "name": "gladys-amberelectric",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Gladys Assistant external integration for Amber Electric: live and forecast wholesale electricity prices.",
   "type": "module",
