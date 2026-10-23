@@ -6,6 +6,10 @@ All notable changes to this integration are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-10-23
+
+- Maintenance release, no functional change.
+
 ## [1.1.0] - 2026-10-21
 
 - Maintenance release, no functional change.
@@ -32,6 +36,7 @@ All notable changes to this integration are documented here. The format follows
 - `SECURITY.md`, `CLAUDE.md`, and the CI, build, release and GitHub release
   workflows.
 
-[Unreleased]: https://github.com/prohand/gladys-amberelectric/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/prohand/gladys-amberelectric/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/prohand/gladys-amberelectric/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/prohand/gladys-amberelectric/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/prohand/gladys-amberelectric/releases/tag/v1.0.1
