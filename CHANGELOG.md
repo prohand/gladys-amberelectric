@@ -6,6 +6,8 @@ All notable changes to this integration are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-10-25
+
 ### Changed
 
 - Gladys 5.3.0 or later is now required.
@@ -46,7 +48,8 @@ All notable changes to this integration are documented here. The format follows
 - `SECURITY.md`, `CLAUDE.md`, and the CI, build, release and GitHub release
   workflows.
 
-[Unreleased]: https://github.com/prohand/gladys-amberelectric/compare/v1.1.1...HEAD
+[Unreleased]: https://github.com/prohand/gladys-amberelectric/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/prohand/gladys-amberelectric/compare/v1.1.1...v1.2.0
 [1.1.1]: https://github.com/prohand/gladys-amberelectric/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/prohand/gladys-amberelectric/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/prohand/gladys-amberelectric/releases/tag/v1.0.1
