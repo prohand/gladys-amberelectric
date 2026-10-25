@@ -94,9 +94,59 @@ test('the integration is tagged cloud: Amber is only reachable over the internet
   assert.deepEqual(manifest.transports, ['cloud']);
 });
 
+// The store vocabulary of the catalog shelves: an unknown key is dropped by
+// the indexer with a mere warning, so a typo would silently cost the shelf.
+const CATALOG_CATEGORIES = [
+  'climate',
+  'lighting',
+  'energy',
+  'security',
+  'multimedia',
+  'appliances',
+  'environment',
+  'protocols',
+  'network',
+  'notifications',
+  'assistants',
+  'services',
+  'transport',
+  'vehicles',
+  'servers',
+  'leisure',
+];
+
 test('the catalog shelf is energy, which requires Gladys >= 4.86.0', () => {
   assert.deepEqual(manifest.categories, ['energy']);
+  for (const category of manifest.categories) {
+    assert.ok(CATALOG_CATEGORIES.includes(category), `unknown category "${category}"`);
+  }
   assert.ok(isAtLeast(minGladysVersion(), [4, 86, 0]));
+});
+
+test('keywords: 1 to 10 unique search terms of 2 to 30 characters', () => {
+  const { keywords } = manifest;
+  assert.ok(Array.isArray(keywords) && keywords.length >= 1 && keywords.length <= 10);
+  for (const keyword of keywords) {
+    assert.equal(typeof keyword, 'string');
+    const length = keyword.trim().length;
+    assert.ok(length >= 2 && length <= 30, `keyword "${keyword}": ${length} characters`);
+  }
+  const normalized = keywords.map((keyword) => keyword.trim().toLowerCase());
+  assert.equal(new Set(normalized).size, normalized.length, 'keywords must be unique');
+});
+
+test('countries: Amber Electric only sells in Australia', () => {
+  assert.deepEqual(manifest.countries, ['AU']);
+  for (const country of manifest.countries) {
+    assert.match(country, /^[A-Z]{2}$/);
+  }
+});
+
+test('declaring keywords, countries or music requires Gladys >= 5.3.0', () => {
+  // An older core rejects the whole manifest over a field it does not know.
+  const declared = ['keywords', 'countries', 'music'].filter((field) => field in manifest);
+  assert.ok(declared.length > 0);
+  assert.ok(isAtLeast(minGladysVersion(), [5, 3, 0]), manifest.gladys_version);
 });
 
 test('every user-facing text is written in English, French, German and Spanish', () => {

@@ -19,13 +19,12 @@ instalar en su red.
   - el **precio de inyección**, si exporta energía solar: lo que **gana** por
     kWh inyectado. Es negativo cuando inyectar le cuesta dinero;
   - la **proporción de renovables** en la red, en %.
-- Tres disparadores de escena, dos acciones de escena y un widget de panel
-  (Gladys 5.1 o posterior).
+- Tres disparadores de escena, dos acciones de escena y un widget de panel.
 
 ## Antes de empezar
 
-Necesita una cuenta de Amber Electric con al menos un sitio activo y un token
-de API personal.
+Necesita **Gladys 5.3.0 o posterior**, una cuenta de Amber Electric con al
+menos un sitio activo y un token de API personal.
 
 ### Crear su token de API
 
@@ -80,8 +79,7 @@ dispositivo** de las escenas: «cuando el precio de la electricidad supere
 
 ## Escenas
 
-La integración añade sus propias tarjetas al editor de escenas (Gladys 5.1 o
-posterior), en la categoría **Integraciones**.
+La integración añade sus propias tarjetas al editor de escenas, en la categoría **Integraciones**.
 
 ### Disparadores
 
