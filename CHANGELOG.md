@@ -6,6 +6,16 @@ All notable changes to this integration are documented here. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- Gladys 5.3.0 or later is now required.
+- Updated the Gladys SDK to 0.16.
+
+### Added
+
+- Catalog search keywords (AEMO, NEM, wholesale, spot price, feed-in tariff…) and the country
+  served (Australia), so the integration is easier to find in the Gladys catalog.
+
 ## [1.1.1] - 2026-10-23
 
 - Maintenance release, no functional change.

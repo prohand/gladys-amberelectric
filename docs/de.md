@@ -19,13 +19,12 @@ Netzwerk muss nichts installiert werden.
     eingespeister kWh **verdienst**. Er ist negativ, wenn Einspeisen dich Geld
     kostet;
   - dem **Anteil erneuerbarer Energie** im Netz, in %.
-- Drei Szenenauslöser, zwei Szenenaktionen und ein Dashboard-Widget (Gladys 5.1
-  oder neuer).
+- Drei Szenenauslöser, zwei Szenenaktionen und ein Dashboard-Widget.
 
 ## Bevor du beginnst
 
-Du brauchst ein Amber-Electric-Konto mit mindestens einem aktiven Standort und
-ein persönliches API-Token.
+Du brauchst **Gladys 5.3.0 oder neuer**, ein Amber-Electric-Konto mit
+mindestens einem aktiven Standort und ein persönliches API-Token.
 
 ### Dein API-Token erstellen
 
@@ -80,8 +79,7 @@ verwenden: „wenn der Strompreis über 0,30 $/kWh steigt…“.
 
 ## Szenen
 
-Die Integration fügt dem Szeneneditor eigene Karten hinzu (Gladys 5.1 oder
-neuer), in der Kategorie **Integrationen**.
+Die Integration fügt dem Szeneneditor eigene Karten hinzu, in der Kategorie **Integrationen**.
 
 ### Auslöser
 

@@ -18,13 +18,12 @@ install on your network.
   - the **feed-in price**, if you export solar: what you **earn** per kWh
     exported. It is negative when exporting costs you money;
   - the **renewable share** of the grid, in %.
-- Three scene triggers, two scene actions and a dashboard widget (Gladys 5.1 or
-  later).
+- Three scene triggers, two scene actions and a dashboard widget.
 
 ## Before you start
 
-You need an Amber Electric account with at least one active site, and a
-personal API token.
+You need **Gladys 5.3.0 or later**, an Amber Electric account with at least
+one active site, and a personal API token.
 
 ### Create your API token
 
@@ -76,8 +75,7 @@ scenes: "when the electricity price goes above 0.30 $/kWh…".
 
 ## Scenes
 
-The integration adds its own cards to the scene editor (Gladys 5.1 or later),
-under the **Integrations** category.
+The integration adds its own cards to the scene editor, under the **Integrations** category.
 
 ### Triggers
 

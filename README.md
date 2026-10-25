@@ -15,6 +15,8 @@ User documentation: [English](./docs/en.md) · [Français](./docs/fr.md) ·
 
 ## What it does
 
+**Requires Gladys 5.3.0 or later.**
+
 **Transport: cloud** (manifest `"transports": ["cloud"]`). Amber has no local API: the
 integration talks to `https://api.amber.com.au/v1` with the user's personal API token, and
 reports a `cloud` badge per site (`unreachable` when the last read failed).
@@ -26,8 +28,7 @@ reports a `cloud` badge per site (`unreachable` when the last read failed).
 ¹ Only when the meter has that channel. The feed-in price is what the user earns per kWh
 exported (Amber's sign flipped): negative means exporting costs money.
 
-Since Gladys 5.1 it also extends the scene editor and the dashboard
-(`src/capabilities/`):
+It also extends the scene editor and the dashboard (`src/capabilities/`):
 
 | Capability      | Key                      | What it does                                                         |
 | --------------- | ------------------------ | -------------------------------------------------------------------- |
@@ -59,7 +60,7 @@ pauses them until the window Amber names is over.
 │  ├─ i18n.js                        # en / fr / de / es helpers
 │  ├─ amber/                         # API client, price maths, labels
 │  ├─ devices/site.js                # one Gladys device per Amber site
-│  └─ capabilities/                  # scenes and dashboard widget (Gladys 5.1+)
+│  └─ capabilities/                  # scenes and dashboard widget
 ├─ docs/{en,fr,de,es}.md             # user documentation (re-hosted by Gladys)
 ├─ test/                             # unit tests (`node --test`), no network
 ├─ gladys-assistant-integration.json # manifest

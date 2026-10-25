@@ -9,9 +9,9 @@ A Gladys Assistant **external integration** (Node 22+, ESM, no build step, one r
 dependency: `@gladysassistant/integration-sdk`) for **Amber Electric**, the Australian
 retailer that passes the wholesale price through. It reads the live and forecast prices of
 the user's Amber sites from the Amber public API (cloud only, manifest `transports:
-["cloud"]`), publishes them as Gladys devices, and adds Gladys 5.1 scene triggers (price
+["cloud"]`), publishes them as Gladys devices, and adds scene triggers (price
 level, spike status, feed-in crossing zero), scene actions (read the current price, find the
-cheapest window) and an "Amber prices" dashboard widget.
+cheapest window) and an "Amber prices" dashboard widget. Requires Gladys 5.3.0+.
 
 It started from the official
 [JavaScript template](https://github.com/GladysAssistant/integration-template-js); the
@@ -83,7 +83,9 @@ test/                        node --test, fake Gladys of the SDK + test/helpers/
 `test/manifest.test.js` ties `gladys-assistant-integration.json` to the code: handlers for
 every action / scene action / widget, every fired trigger declared, `DEFAULT_CONFIG` and
 `LIMITS` matching the defaults and bounds, `transports: ["cloud"]`, every text in
-`en`/`fr`/`de`/`es`, catalog description 10–100 characters, `gladys_version >= 5.1.0`,
+`en`/`fr`/`de`/`es`, catalog description 10–100 characters, `gladys_version >= 5.3.0`
+(`keywords`, `countries`), keywords 1–10 of 2–30 characters, `countries: ["AU"]`, catalog
+shelves in the store vocabulary,
 version and image tag in lockstep with `package.json`.
 
 ## Rules

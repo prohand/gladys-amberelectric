@@ -20,12 +20,12 @@ installer sur votre réseau.
     l'argent ;
   - la **part de renouvelables** sur le réseau, en %.
 - Trois déclencheurs de scène, deux actions de scène et un widget de tableau de
-  bord (Gladys 5.1 ou plus récent).
+  bord.
 
 ## Avant de commencer
 
-Il vous faut un compte Amber Electric avec au moins un site actif, et un jeton
-d'API personnel.
+Il vous faut **Gladys 5.3.0 ou plus récent**, un compte Amber Electric avec au
+moins un site actif, et un jeton d'API personnel.
 
 ### Créer votre jeton d'API
 
@@ -80,8 +80,7 @@ d'un appareil** des scènes : « quand le prix de l'électricité dépasse
 
 ## Scènes
 
-L'intégration ajoute ses propres cartes à l'éditeur de scènes (Gladys 5.1 ou
-plus récent), dans la catégorie **Intégrations**.
+L'intégration ajoute ses propres cartes à l'éditeur de scènes, dans la catégorie **Intégrations**.
 
 ### Déclencheurs
 
